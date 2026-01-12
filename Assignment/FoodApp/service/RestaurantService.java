@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RestaurantService {
 
-    private List<Restaurant> restaurants = new ArrayList<>();
+    private static List<Restaurant> restaurants = new ArrayList<>();
 
     // Add restaurant
     public void addRestaurant(Restaurant restaurant) {
