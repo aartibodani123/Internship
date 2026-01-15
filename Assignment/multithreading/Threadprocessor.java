@@ -5,8 +5,18 @@ public class Threadprocessor implements Runnable {
     File obj;
     int taskid;
     public Threadprocessor(int taskid,String fileName){
-        obj=new File(fileName);
+        obj = new File(fileName);
+        try{
+            if (obj.createNewFile()) {
+            System.out.println("File created");
+            } else {
+                System.out.println("File already exists");
+            }
+        }catch(Exception e){
+            System.out.println("Error occured");
+        }
         this.taskid=taskid;
+
     }
     
     public void run(){
