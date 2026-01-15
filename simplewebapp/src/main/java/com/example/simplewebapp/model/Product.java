@@ -11,6 +11,10 @@ public class Product {
     private String prodName;
     private int price;
 
+    public Product() {
+
+    }
+
     public int getProdId() {
         return prodId;
     }
