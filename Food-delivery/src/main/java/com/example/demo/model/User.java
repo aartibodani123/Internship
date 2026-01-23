@@ -1,40 +1,51 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.Role;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")   // 👈 IMPORTANT
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "user_type")
+@AllArgsConstructor
+@Getter
+@Setter
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userId;
-    private String username;
+    private long user_Id;
+    private String user_name;
     private String phone;
 
     private String email;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    protected User() {}
+    private String password;
+
+    public User() {
+
+    }
+
 
     // getters & setters
-    public Long getId() {
-        return userId;
-    }
+   public Long getId() {
+       return user_Id;
+   }
 
     public void setUserId(long userId) {
-        this.userId = userId;
+        this.user_Id = userId;
     }
 
-    public String getName() {
-        return username;
+   public String getName() {
+      return user_name;
     }
-
+//
     public void setName(String name) {
-        this.username = name;
+        this.user_name = name;
     }
 
     public String getPhone() {

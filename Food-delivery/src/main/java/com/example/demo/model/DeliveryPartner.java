@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.model.enums.VehicleType;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,7 +9,7 @@ public class DeliveryPartner extends User {
     private Boolean available;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Vehicle_type vehicle_type;
+    private VehicleType vehicle_type;
     private Double rating;
 
     public Boolean getAvailable() {
@@ -19,11 +20,11 @@ public class DeliveryPartner extends User {
         this.available = available;
     }
 
-    public Vehicle_type getVehicle_type() {
+    public VehicleType getVehicle_type() {
         return vehicle_type;
     }
 
-    public void setVehicle_type(Vehicle_type vehicle_type) {
+    public void setVehicle_type(VehicleType vehicle_type) {
         this.vehicle_type = vehicle_type;
     }
 
@@ -33,5 +34,9 @@ public class DeliveryPartner extends User {
 
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public void setUserId(Long id) {
+
     }
 }
