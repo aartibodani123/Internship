@@ -11,11 +11,11 @@ public interface CustomerService {
 
     Customer getCustomerById(long id);
 
-    void updateCustomer(Customer c,Long id);
+    Customer updateCustomer(Customer c,Long id);
 
     void deleteCustomerById(long id);
 
-    void signUpCustomer(Customer c);
+    String signUpCustomer(Customer c);
 
-    String loginCustomer(Customer c);
+    Customer loginCustomer(Customer c);
 }

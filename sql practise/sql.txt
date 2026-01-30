@@ -1,0 +1,152 @@
+
+🟢 BASIC SELECT & WHERE (1–15)
+
+1. Fetch all records from the `users` table.
+select * from users;
+
+2. Fetch only `id`, `name`, and `email` from `users`.
+select id , name , email from users;
+
+3. Get all customers from the `customers` table.
+select * from customers;
+
+4. Find customers whose city is `"Mumbai"`.
+select name , address from customers 
+join customer_profiles on customers.customer_id 
+=customer_profiles.customer_id where address='Mumbai';
+
+5. Fetch all products with price greater than 500.
+select * from products where price>50000;
+
+6. Get all products with stock less than 10.
+select * from products where stock<10;
+
+7. Fetch all orders with status `"DELIVERED"`.
+select * from orders where status='COMPLETED';
+
+8. Get all payments with payment method `"UPI"`.
+select * from payments where payment_method='UPI';
+
+9. Find users created after `2024-01-01`.
+SELECT * FROM users WHERE created_at > '2024-01-01';
+
+10. Fetch all orders placed by customer with id = 1.
+select id , order_date , status , total_amount from orders where user_id=1;
+
+11. Get all products belonging to company id = 3.
+12. Fetch orders where total amount is between 500 and 2000.
+select * from orders where total_amount between 500 and 2000;
+
+13. Get all users whose email ends with `@gmail.com`.
+select * from users where email like '%gmail.com';
+
+14. Fetch all customers except those from `"Mumbai"`.
+select * from customers join customer_profiles on customers.customer_id = customer_profiles.customer_id where address!='Mumbai';
+
+15. Get the first 2 records from the `products` table.
+select * from users limit 2;
+
+🟡 ORDER BY, LIMIT, DISTINCT (16–25)
+
+16. Fetch all products ordered by price (low to high).
+select * from products order by price;
+
+17. Fetch top  most expensive product.
+select * from products order by price desc limit 1 ;
+
+18. Get latest 10 orders (based on order date).
+select * from orders order by order_date desc limit 10;
+19. Fetch distinct cities from `customers`.
+select distinct address from customer_profiles;
+
+20. Fetch customers ordered alphabetically by name.
+select distinct address from customer_profiles;
+
+21. Get the cheapest product.
+select * from products order by price limit 1;
+
+22. Fetch top 3 latest registered users.
+select * from users order by created_at desc limit 3;
+
+23. Get all payments ordered by amount (highest first).
+select * from orders where status='COMPLETED' order by total_amount desc; 
+
+24. Fetch products ordered by stock quantity descending.
+25. Get first 5 customers from Bengaluru.
+
+🟠 JOINS (26–45)
+
+26. Fetch customer name along with their orders.
+27. Fetch order id, order date, and customer name.
+28. Get all orders with their payment status.
+29. Fetch product name and company name.
+30. Get all order items with product name and price.
+31. Fetch orders along with total payment amount.
+32. Get customer name, order id, and order status.
+33. Fetch users and their customer profile details.
+34. Get orders that do not have a payment yet.
+35. Fetch customers who have placed at least one order.
+36. Fetch all products that were never ordered.
+37. Get company name and total number of products they sell.
+38. Fetch order id, product name, and quantity ordered.
+39. Get all orders along with payment method used.
+40. Fetch customers and total orders placed by each.
+41. Fetch delivery partner (user) linked with orders *(if applicable)*.
+42. Get products ordered by a specific customer (id = 2).
+43. Fetch company-wise product count.
+44. Fetch orders along with customer city.
+45. Fetch order items along with order date.
+
+---
+
+## 🔵 GROUP BY & AGGREGATE FUNCTIONS (46–60)
+
+46. Count total number of users.
+47. Count total number of customers.
+48. Find total number of orders.
+49. Find total revenue from payments.
+50. Find average order value.
+51. Find total orders placed by each customer.
+52. Find total revenue per customer.
+53. Find total sales per product.
+54. Find total sales per company.
+55. Find highest payment made.
+56. Find lowest priced product.
+57. Find average product price per company.
+58. Count number of products per company.
+59. Find total quantity sold per product.
+60. Find day-wise total orders.
+
+---
+
+## 🟣 HAVING, SUBQUERIES (61–70)
+
+61. Find customers who placed more than 5 orders.
+62. Find products sold more than 100 times.
+63. Find companies having more than 10 products.
+64. Find customers whose total spending is above 5000.
+65. Find orders with amount greater than average order amount.
+66. Find products priced above average product price.
+67. Find customers who never placed an order.
+68. Find the most frequently ordered product.
+69. Find the customer who spent the most money.
+70. Find the company with highest total sales.
+
+---
+
+## 🔴 ADVANCED (CASE, DATE, REAL-WORLD) (71–80)
+
+71. Show orders with a column `order_type`
+    (`HIGH` if amount > 1000 else `LOW`).
+72. Fetch orders placed in the last 7 days.
+73. Fetch monthly revenue.
+74. Find customers who ordered in the current month.
+75. Fetch orders with payment status `FAILED`.
+76. Find repeat customers (more than 1 order).
+77. Fetch top 5 customers by total spending.
+78. Find products that are out of stock.
+79. Find orders where payment is pending.
+80. Fetch customer name, total orders, total spending (single query).
+
+
+

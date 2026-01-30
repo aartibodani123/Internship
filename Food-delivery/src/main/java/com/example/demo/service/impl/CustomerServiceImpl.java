@@ -16,20 +16,23 @@ import java.util.Objects;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repo;
-    public void signUpCustomer(Customer c){
+    public String signUpCustomer(Customer c){
         if (repo.existsByEmail(c.getEmail()))
-                throw new RuntimeException("Email already registered");
+                return "Un Successfull";
         repo.save(c);
+        return "signup successfull";
     }
-    public String loginCustomer(Customer c){
+    public Customer loginCustomer(Customer c){
         if (!repo.existsByEmail(c.getEmail()))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer Not Found");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer Not Found");
+            return null;
 
         Customer existingCustomer=repo.getCustomerByEmail(c.getEmail());
         if(!Objects.equals(existingCustomer.getPassword(), c.getPassword()))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Incorrect password");
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Incorrect password");
+            return null;
 
-        return "Login Successfull";
+        return existingCustomer;
 
     }
     public List<Customer> getCustomers(){
@@ -40,14 +43,14 @@ public class CustomerServiceImpl implements CustomerService {
         return repo.findById(id).orElse(new Customer());
     }
 
-    public void updateCustomer(Customer c,Long id){
+    public Customer updateCustomer(Customer c,Long id){
             Customer existingCustomer = repo.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer Not FOund"));
 
             existingCustomer.setName(c.getName());
             existingCustomer.setEmail(c.getEmail());
 
-            repo.save(existingCustomer);
+            return repo.save(existingCustomer);
 
     }
 
