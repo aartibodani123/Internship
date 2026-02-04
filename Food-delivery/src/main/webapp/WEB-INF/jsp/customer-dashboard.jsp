@@ -1,111 +1,72 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
+
     <title>Customer Dashboard</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-
-
-        .container {
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        a {
-            text-decoration: none;
-            color: #ff6f00;
-            font-weight: bold;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            background-color: #1f2933; /* dark slate */
-            color: #ffffff;
-            padding: 12px 24px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .header-left,
-        .header-right {
-            flex: 1;
-        }
-
-        .header-center {
-            flex: 2;
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .logo {
-            height: 100px;
-            width: auto;
-        }
-
-
-
-        .logout {
-            float: right;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
-<body>
+<body class="dashboard-page">
 
-<header class="header">
-    <div class="header-left">
-        <img src="${pageContext.request.contextPath}/images/logo.png" alt="Eatzy Logo" class="logo">
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">
+        <img src="${pageContext.request.contextPath}/images/logo.png"
+             alt="Eatzy Logo">
     </div>
 
-    <div class="header-center">
-        Customer Dashboard
-    </div>
+    <div class="nav-title">Customer Dashboard</div>
+</div>
 
-    <div class="header-right">
-        <!-- future logout / profile -->
-    </div>
-</header>
+<!-- Main Content -->
+<div class="dashboard-container">
 
-
-<div class="container">
-
-    <div class="card">
-        <h2>Welcome, ${user_name}</h2>
+    <!-- Welcome Card -->
+    <div class="card welcome-card">
+        <h2>Welcome, ${user_name} 👋</h2>
         <p>Glad to see you back!</p>
     </div>
 
+    <!-- Quick Actions -->
     <div class="card">
-        <h3>📋 Quick Actions</h3>
-        <ul>
-            <li><a href="/restaurants/get">Browse Restaurants</a></li>
-            <li><a href="/orders/my-orders">My Orders</a></li>
-            <li><a href="/customers/profile">My Profile</a></li>
-        </ul>
+        <h3>⚡ Quick Actions</h3>
+
+        <div class="actions">
+            <a href="${pageContext.request.contextPath}/restaurants/get" class="action-btn">
+                🍽 Browse Restaurants
+            </a>
+
+            <a href="${pageContext.request.contextPath}/orders" class="action-btn">
+                📦 My Orders
+            </a>
+
+            <a href="${pageContext.request.contextPath}/customers/profile" class="action-btn outline">
+                👤 My Profile
+            </a>
+        </div>
     </div>
 
+    <!-- Recent Orders -->
     <div class="card">
         <h3>🛒 Recent Orders</h3>
-        <p>No recent orders found.</p>
+
+        <c:if test="${empty orders}">
+            <p class="muted">No recent orders found.</p>
+        </c:if>
+
+        <c:if test="${not empty orders}">
+            <ul class="order-list">
+                <c:forEach var="order" items="${orders}">
+                    <li>
+                        Order #${order.id} — ₹${order.totalAmount}
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:if>
     </div>
 
 </div>
