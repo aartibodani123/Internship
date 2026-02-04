@@ -5,6 +5,7 @@ import com.example.demo.common.ApiResponse;
 import com.example.demo.model.Customer;
 import com.example.demo.model.enums.Role;
 import com.example.demo.service.impl.CustomerServiceImpl;
+import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -59,17 +60,10 @@ public class CustomerController {
     }
 
     // Handle login form submit
-    @PostMapping("/login")
-    public String loginCustomer(@ModelAttribute Customer c, Model model) {
-        Customer loginResponce = service.loginCustomer(c);
-        if (loginResponce != null) {
-            model.addAttribute("user_name",loginResponce.getName());
-            model.addAttribute("User Id",loginResponce.getUser_Id());
-            return "customer-dashboard"; // a JSP page for customer after login
-        } else {
-            model.addAttribute("error", "Invalid email/password");
-            return "customer-login"; // reload login page with error
-        }
+    @GetMapping("/dashboard")
+    public String dashboard(Model model, Authentication auth) {
+        model.addAttribute("user_name", auth.getName());
+        return "customer-dashboard";
     }
 
     @GetMapping

@@ -6,6 +6,7 @@ import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -16,21 +17,29 @@ import java.util.Objects;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public String signUpCustomer(Customer c){
         if (repo.existsByEmail(c.getEmail()))
-                return "Un Successfull";
+            return "Un Successfull";
+
+        // 🔐 encode password here
+        c.setPassword(passwordEncoder.encode(c.getPassword()));
+
         repo.save(c);
         return "signup successfull";
     }
+
     public Customer loginCustomer(Customer c){
         if (!repo.existsByEmail(c.getEmail()))
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer Not Found");
             return null;
 
         Customer existingCustomer=repo.getCustomerByEmail(c.getEmail());
-        if(!Objects.equals(existingCustomer.getPassword(), c.getPassword()))
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Incorrect password");
+        if (!passwordEncoder.matches(c.getPassword(), existingCustomer.getPassword()))
             return null;
+
 
         return existingCustomer;
 
