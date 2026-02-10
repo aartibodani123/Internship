@@ -1,17 +1,14 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.impl.security;
 
 import com.example.demo.model.Customer;
-import com.example.demo.model.DeliveryPartner;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.DeliveryPartnerRepository;
 import com.example.demo.service.customUserDetailService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +35,7 @@ public class CustomUserDetailServiceImpl implements customUserDetailService {
         Optional<Customer> customerOpt = customerRepository.findByEmail(email);
         if (customerOpt.isPresent()) {
             Customer customer = customerOpt.get();
+
 
             return org.springframework.security.core.userdetails.User
                     .withUsername(customer.getEmail())
