@@ -23,6 +23,7 @@ public class Restaurant {
 
     private String phone;
 
+
     @Column(nullable = false)
     private boolean active=true;
 

@@ -18,11 +18,7 @@ public class CustomerRestaurantServiceImpl implements CustomerRestaurantService 
     public List<RestaurantResponseDTO> getRestaurant(){
         return repo.findAll()
                 .stream()
-                .map(rs -> new RestaurantResponseDTO(
-                        rs.getId(),
-                        rs.getName(),
-                        rs.getAddress(),
-                        rs.getPhone()))
+                .map(RestaurantResponseDTO::new)
                 .collect(Collectors.toList());
     }
 }

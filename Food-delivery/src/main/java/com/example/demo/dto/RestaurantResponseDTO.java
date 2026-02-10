@@ -13,10 +13,12 @@ public class RestaurantResponseDTO {
     private String name;
     private String address;
     private String phone;
+    private Double rating;
+
     public RestaurantResponseDTO(Restaurant r) {
         this.name = r.getName();
-        this.address = r.getAddress();
-        this.phone = r.getPhone();
+        this.phone=r.getPhone();
+        this.address=r.getAddress();
     }
 
 
