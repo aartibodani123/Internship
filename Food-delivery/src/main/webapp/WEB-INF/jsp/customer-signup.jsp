@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Customer Signup</title>
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style1.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Customer-signup.css">
 </head>
 

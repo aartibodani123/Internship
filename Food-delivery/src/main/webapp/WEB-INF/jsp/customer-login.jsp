@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Customer Login</title>
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style1.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
@@ -20,8 +21,8 @@
         <p class="error-msg">${error}</p>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/login" method="post">
-        <input type="email" name="username" placeholder="Email" required>
+    <form action="${pageContext.request.contextPath}/customers/process-login" method="post">
+        <input type="email" name="email" placeholder="Email" required>
 
         <input type="password" name="password" placeholder="Password" required>
 

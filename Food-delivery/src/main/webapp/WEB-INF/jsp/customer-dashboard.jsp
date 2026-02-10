@@ -7,20 +7,17 @@
     <meta charset="UTF-8">
 
     <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Style1.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
 <body class="dashboard-page">
 
 <!-- Navbar -->
-<div class="navbar">
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/logo.png"
-             alt="Eatzy Logo">
-    </div>
+<jsp:include page="navbar.jsp">
+    <jsp:param name="navTitle" value="Customer Dashboard" />
+</jsp:include>
 
-    <div class="nav-title">Customer Dashboard</div>
-</div>
 
 <!-- Main Content -->
 <div class="dashboard-container">

@@ -5,6 +5,7 @@
 <head>
     <title>Available Restaurants</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style1.css">
 </head>
 
 <body class="restaurant-page">

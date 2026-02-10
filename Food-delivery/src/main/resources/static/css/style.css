@@ -29,20 +29,7 @@
     margin-bottom: 6px;
     font-size: 26px;
 }
-.navbar {
-    height: 64px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    padding: 0 32px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-}
-.logo img {
-    max-height: 100px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-}
+
 
 
 .subtitle {
@@ -88,26 +75,6 @@
 }
 
 /* Navbar */
-.navbar {
-    height: 64px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    padding: 0 32px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-}
-
-.logo {
-    font-size: 22px;
-    font-weight: 600;
-    color: #ff6b00;
-}
-
-.nav-title {
-    margin: auto;
-    font-size: 18px;
-    font-weight: 500;
-}
 
 /* Container */
 .dashboard-container {
@@ -180,16 +147,6 @@
     font-size: 14px;
 }
 /* Page */
-.restaurant-page {
-    min-height: 100vh;
-    background:
-            linear-gradient(
-                    rgba(255, 241, 230, 0.9),
-                    rgba(255, 241, 230, 0.9)
-            ),
-            url("../images/food-doodles.png");
-    font-family: "Segoe UI", sans-serif;
-}
 
 /* Container */
 .page-container {
