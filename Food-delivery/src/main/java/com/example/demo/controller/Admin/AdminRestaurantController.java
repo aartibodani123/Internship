@@ -5,8 +5,13 @@ import com.example.demo.dto.RestaurantResponseDTO;
 import com.example.demo.model.Restaurant;
 import com.example.demo.service.impl.AdminRestaurantServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/admin/manage")
@@ -20,5 +25,11 @@ public class AdminRestaurantController {
         ApiResponse<RestaurantResponseDTO> apiResponse=new ApiResponse<>(201,"Restaurant Added",response);
         return ResponseEntity.status(201).body(apiResponse);
     }
+
+    @GetMapping("/restaurant-table")
+    public ResponseEntity<HttpStatus> getRestaurantTable(Pageable pageable) {
+        return (ResponseEntity<HttpStatus>) ResponseEntity.ok();
+    }
+
 
 }
