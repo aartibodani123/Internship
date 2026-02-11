@@ -21,13 +21,10 @@
         <p class="error-msg">${error}</p>
     </c:if>
 
-    <form action="${pageContext.request.contextPath}/customers/process-login" method="post">
-        <input type="email" name="email" placeholder="Email" required>
-
-        <input type="password" name="password" placeholder="Password" required>
-
-
-        <button class="primary-btn">Login</button>
+    <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit" class="primary-btn">Login</button>
     </form>
 
     <p class="signup-text">
@@ -37,4 +34,38 @@
 </div>
 
 </body>
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    fetch("${pageContext.request.contextPath}/customers/authenticate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Invalid credentials");
+        }
+        window.location.href = "${pageContext.request.contextPath}/customers/dashboard";
+
+    })
+    .then(data => {
+        localStorage.setItem("token", data.token);
+        window.location.href = "${pageContext.request.contextPath}/customers/dashboard";
+    })
+    .catch(error => {
+        alert("Invalid Email or Password");
+    });
+});
+</script>
+
 </html>

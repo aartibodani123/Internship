@@ -14,7 +14,7 @@
 <body class="dashboard-page">
 
 <!-- Navbar -->
-<jsp:include page="navbar.jsp">
+<jsp:include page="/WEB-INF/jsp/layout/navbar.jsp">
     <jsp:param name="navTitle" value="Customer Dashboard" />
 </jsp:include>
 
