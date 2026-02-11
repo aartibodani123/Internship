@@ -91,8 +91,44 @@ public class SecurityConfig {
         return new ProviderManager(customerAuthenticationProvider);
     }
     // ================= CUSTOMER =================
+//    @Bean
+//    @Order(3)
+//    SecurityFilterChain customerSecurity(
+//            HttpSecurity http,
+//            DaoAuthenticationProvider customerAuthenticationProvider
+//    ) throws Exception {
+//
+//        http
+//                .securityMatcher("/customers/**")
+//                .authenticationProvider(customerAuthenticationProvider)
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers(
+//                                "/customers/login",
+//                                "/customers/signup",
+//                                "/customers/process-login",
+//                                "/css/**",
+//                                "/images/**"
+//                        ).permitAll()
+//                        .anyRequest().hasRole("CUSTOMER")
+//                )
+//                .formLogin(form -> form
+//                        .loginPage("/customers/login")
+//                        .loginProcessingUrl("/customers/process-login")
+//                        .defaultSuccessUrl("/customers/dashboard", true)
+//                        .failureUrl("/customers/login?error=true")
+//                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/customers/logout")
+//                        .logoutSuccessUrl("/customers/login?logout=true")
+//                );
+//
+//        return http.build();
+//    }
+    @Autowired
+    JwtAuthFilter jwtAuthFilter;
     @Bean
-    @Order(3)
+    @Order(2)
     SecurityFilterChain customerSecurity(
             HttpSecurity http,
             DaoAuthenticationProvider customerAuthenticationProvider
@@ -100,53 +136,31 @@ public class SecurityConfig {
 
         http
                 .securityMatcher("/customers/**")
-                .authenticationProvider(customerAuthenticationProvider)
                 .csrf(csrf -> csrf.disable())
+                .sessionManagement(sm ->
+                        sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(customerAuthenticationProvider)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/customers/login",
+                                "/customers/authenticate",
                                 "/customers/signup",
-                                "/customers/process-login",
+
+                                "/customers/ping",
+                                "/customers/login",
                                 "/css/**",
                                 "/images/**"
                         ).permitAll()
                         .anyRequest().hasRole("CUSTOMER")
                 )
-                .formLogin(form -> form
-                        .loginPage("/customers/login")
-                        .loginProcessingUrl("/customers/process-login")
-                        .defaultSuccessUrl("/customers/dashboard", true)
-                        .failureUrl("/customers/login?error=true")
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/customers/logout")
-                        .logoutSuccessUrl("/customers/login?logout=true")
-                );
+                .addFilterBefore(jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-    @Autowired
-    JwtAuthFilter jwtAuthFilter;
-    @Bean
-    @Order(2)
-    SecurityFilterChain customerApiSecurity(
-            HttpSecurity http,
-            DaoAuthenticationProvider customerAuthenticationProvider
-    ) throws Exception {
 
-        http
-                .securityMatcher("/customers/authenticate")
-                .csrf(csrf -> csrf.disable())
-                .authenticationProvider(customerAuthenticationProvider)
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
-                )
-                .formLogin(form -> form.disable()); // 🚨 important
-        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
 
- 
+
+
 
 
 
