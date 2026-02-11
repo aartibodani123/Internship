@@ -5,12 +5,16 @@ import com.example.demo.common.ApiResponse;
 import com.example.demo.model.Customer;
 import com.example.demo.model.enums.Role;
 import com.example.demo.service.impl.CustomerServiceImpl;
+import com.example.demo.util.JWTUtil;
+import jakarta.servlet.http.Cookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 import java.util.List;
@@ -20,7 +24,10 @@ import java.util.List;
 
 public class CustomerController {
     @Autowired
-    CustomerServiceImpl service;
+    private JWTUtil jwtUtil;
+
+    @Autowired
+    private CustomerServiceImpl service;
 
 //    @PostMapping("/signup")
 //    public ResponseEntity<ApiResponse<Customer>> signUpCustomer(@RequestBody Customer c){
@@ -61,10 +68,16 @@ public class CustomerController {
 
     // Handle login form submit
     @GetMapping("/dashboard")
-    public String dashboard(Model model, Authentication auth) {
-        model.addAttribute("user_name", auth.getName());
+    public String dashboard(Authentication authentication, Model model) {
+
+        String email = authentication.getName();
+        Customer customer = service.findByEmail(email);
+
+        model.addAttribute("user_name", customer.getName());
+
         return "customer-dashboard";
     }
+
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Customer>>> getCustomers(){
@@ -95,6 +108,10 @@ public class CustomerController {
         service.deleteCustomerById(id);
         ApiResponse<String> apiResponse=new ApiResponse<>(200,"Customer Deleted ",null);
         return ResponseEntity.status(200).body(apiResponse);
+    }
+    @GetMapping("/secure-test")
+    public String secureTest() {
+        return "JWT WORKING SUCCESSFULLY";
     }
 
 

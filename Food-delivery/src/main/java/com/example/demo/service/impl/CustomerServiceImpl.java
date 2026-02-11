@@ -51,7 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getCustomerById(long id){
         return repo.findById(id).orElse(new Customer());
     }
-
+    public Customer findByEmail(String email){
+        return repo.findByEmail(email).orElse(new Customer());
+    }
     public Customer updateCustomer(Customer c,Long id){
             Customer existingCustomer = repo.findById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Customer Not FOund"));
